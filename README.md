@@ -1,3 +1,3 @@
 # nodejspipeline
 
-Aplicación Hello-World en nodeJS con pipeline
+Hello-World application in NodeJS with pipeline
