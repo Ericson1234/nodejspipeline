@@ -12,9 +12,10 @@ node {
      }
    }
    stage('Docker Build & Push') {
-     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
-      def nuestraapp = docker.build("Ericson1234/nodejsapp:${gitcommit}", ".")
-      nuestraapp.push()
-     }
-   }
+    withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+        def nuestraapp = docker.build("Ericson1234/nodejsapp:${gitcommit}", ".")
+        nuestraapp.push()
+    }
+}
 }
